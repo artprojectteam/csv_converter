@@ -1,0 +1,22 @@
+{
+  "name": "csv_converter",
+  "version": "1.0.0",
+  "description": "CSV to json,php files",
+  "main": "",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/artprojectteam/csv_converter.git"
+  },
+  "keywords": [],
+  "author": "Nobuyuki Kondo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/artprojectteam/csv_converter/issues"
+  },
+  "homepage": "https://github.com/artprojectteam/csv_converter#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "require-dir": "^0.3.0"
+  }
+}

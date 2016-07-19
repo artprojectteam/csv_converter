@@ -1,0 +1,18 @@
+{
+  "name": "csv_converter",
+  "description": "CSV to json,php files",
+  "main": "",
+  "authors": [
+    "Nobuyuki Kondo"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/artprojectteam/csv_converter",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
