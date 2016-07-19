@@ -1,6 +1,6 @@
 {
   "name": "csv_converter",
-  "description": "CSV to json,php files",
+  "description": "CSV to serialize,json,php files",
   "main": "",
   "authors": [
     "Nobuyuki Kondo"

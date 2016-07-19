@@ -1,0 +1,13 @@
+{
+  "validateIndentation": 2,
+  "requireClassLiteralsBeforeAttributes": true,
+  "requireClassLiteralsBeforeIdLiterals": true,
+  "requireIdLiteralsBeforeAttributes": true,
+  "requireLowerCaseAttributes": true,
+  "requireLowerCaseTags": true,
+  "requireSpaceAfterCodeOperator": true,
+  "requireSpecificAttributes": [
+    {"img": ["alt"]}
+  ],
+  "requireStrictEqualityOperators": true
+}
