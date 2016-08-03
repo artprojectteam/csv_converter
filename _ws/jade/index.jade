@@ -1,4 +1,42 @@
-p test
-p test
-p test
-p test
+extends _assets/_layouts/_base
+
+prepend vars
+  -
+    var $root = './'
+    var $page_path = '/'
+    var $fb_flg = true
+    var $fb_image = ''
+
+    var $title = ''
+    var $description = ''
+
+
+append vars
+  -
+    //- OGP関係
+    var $ogp_type = 'website'
+    var $ogp_url = URI + $page_path    //- ページURL
+    var $ogp_image = $fb_image !== '' ? URI + $fb_image : URI + config.ogp.image
+
+append css
+  link(rel="stylesheet", href="#{PATH_CSS}/home.css", media="all")
+
+append footer_js
+  script(src="#{PATH_JS}/Run.js")
+
+block contents
+  .wrapper(ng-app="csvApp", ng-controller="CsvController as csv")
+    header.header
+      h1.header-title= config.title
+
+    main.container(role="main", ng-controller="DropController as drops")
+      #fileDrop.fileDrop(ng-drop="drop($event)", ng-dragover="dragOver($event)")
+        .fileDrop-area ここにCSVファイルを1枚だけドロップ
+
+      result-area(value="result", ng-show="isResult")
+
+      aside#progress.progress(aria-hidden="true")
+        .progress-container
+          progressbar(value="progress")
+
+  include _assets/_partials/_footer

@@ -1,4 +1,31 @@
 @charset "UTF-8"
+@require "_assets/_ini.styl"
+@import "../../../bower_components/normalize-css/normalize.css"
+
+//*********** Reset ***************//
+html
+  font-size: unit($_px_def, 'px')
 
 body
-  color: #000000
+  margin: 0
+  padding: 0
+  color: #333
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+  letter-spacing: 0.05em
+  font: 100% / 1 $_font_default
+  font-weight: normal
+  -webkit-text-size-adjust: 100%
+
+h1
+h2
+h3
+h4
+h5
+h6
+  font-size: 100%
+  font-weight: normal
+  margin: 0
+
+
+@import "_assets/_partials/_footer.styl"

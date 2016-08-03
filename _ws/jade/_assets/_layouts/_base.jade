@@ -1,0 +1,46 @@
+block vars
+  -
+    var TITLE = $title === '' ? config.title : $title + ' | ' + config.title
+    var OG_TITLE = $title || config.title
+    var DESCRIPTION = $description || config.description
+    var URI = CMN.uri + config.router.root
+    var PATH_ROOT = $root + config.router.root
+    var PATH_COMMON = PATH_ROOT + CMN.dir.common
+    var PATH_IMG = PATH_COMMON + '/' + CMN.dir.image
+    var PATH_CSS = PATH_COMMON + '/' + CMN.dir.css
+    var PATH_JS = PATH_COMMON + '/' + CMN.dir.js
+    var $favicon = PATH_ROOT + 'favicon.ico'
+
+doctype html
+html(lang="ja")
+  head(prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# #{$ogp_type}: http://ogp.me/ns/#{$ogp_type}#")
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    title= TITLE
+    meta(name="google", content="notranslate")
+    meta(name="author", content=config.author)
+    if DESCRIPTION !== ''
+      meta(name="description", content=DESCRIPTION)
+    meta(property="og:type", content=$ogp_type)
+    meta(property="og:url", content=$ogp_url)
+    meta(property="og:image", content=$ogp_image)
+    meta(property="og:site_name", content=config.title)
+    meta(property="og:title", content=OG_TITLE)
+    if DESCRIPTION !== ''
+      meta(property="og:description", content=DESCRIPTION)
+    if config.ogp.app_id
+      meta(property="fb:app_id", content=config.ogp.app_id)
+    link(rel="shortcut icon", type="image/x-icon", href=$favicon)
+
+    //- CSS
+    block css
+      link(rel="stylesheet", href="#{PATH_CSS}/style.css", media="all")
+
+    block header_js
+
+    if MODE_ENV === CMN.mode._p
+      include ../_partials/_analytics
+
+  body
+    block contents
+    block footer_js

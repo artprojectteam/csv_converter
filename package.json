@@ -58,6 +58,18 @@
     "url": "https://github.com/artprojectteam/csv_converter/issues"
   },
   "homepage": "https://github.com/artprojectteam/csv_converter#readme",
+  "browserify": {
+    "transform": [
+      "debowerify",
+      "browserify-shim"
+    ]
+  },
+  "browser": {
+    "angular": "./bower_components/angular/angular.js",
+    "angular-animate": "./bower_components/angular-animate/angular-animate.js",
+    "Zepto": "./bower_components/zepto/zepto.js"
+  },
+  "browserify-shim": {},
   "devDependencies": {
     "babel-eslint": "^6.1.2",
     "babel-plugin-transform-es2015-classes": "^6.9.0",

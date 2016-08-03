@@ -15,13 +15,12 @@ dir =
 
 # 対象リスト
 target = dir.in.default + Config.wildcard
-targetPHP = dir.in.php + Config.wildcard
 
 files =
   default: [
     "#{target}/*#{ext}"
     "!#{target}/_*#{ext}"
-    "!#{target}/_assets/**"
+    "!#{dir.in.default}/_assets/**"
   ]
   config: [
     "data/*.yml"
@@ -70,7 +69,7 @@ g.task task.default, [task.config], ->
       pretty = !Config.conf.minify
 
 
-  return g.src target
+  return g.src files.default
   .pipe $.plumber(
     errorHandler: (err)->
       flg = false
@@ -80,6 +79,7 @@ g.task task.default, [task.config], ->
   .pipe $.data ->
     return locals
   .pipe $.jade(
+    doctype: 'html',
     pretty: pretty
     cache: true
   )

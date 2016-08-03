@@ -1,0 +1,12 @@
+title: CSV Converter
+author: Nobuyuki Kondo
+description: CSVファイルをシリアライズ、JSON、phpファイルに整形してダウンロードすることが出来ます
+
+
+router:
+  root: ""
+
+# OGP
+ogp:
+  image: /share.jpg
+  app_id: ""

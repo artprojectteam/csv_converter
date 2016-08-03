@@ -1,0 +1,17 @@
+.fileDrop
+  $h = s('calc(100vh - (%s + %s))', $_home_header, ($_home_footer + $_space))
+  position: relative
+  height: $h
+  border: 3px dashed #cccccc
+  font-size: font-size-calc(30)
+  text-align: center
+  line-height: $h
+  border-radius: 10px
+  color: #cccccc
+  transition: all $ease
+  box-sizing: border-box
+  &.dropping
+    background: #eeeeee
+  &.res
+    height: 200px
+    line-height: 200px

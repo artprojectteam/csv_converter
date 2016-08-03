@@ -1,0 +1,86 @@
+// ゴシック
+$fg_yu = "游ゴシック",unquote("YuGothic")
+$fg_hiragino = "ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN"
+$fg_meyrio = "メイリオ",unquote("Meiryo")
+$fg_ms = "ＭＳ Ｐゴシック","MS P Gothic"
+$fg_arial = unquote("ArialMT"),unquote("Arial")
+$fg_hel = unquote("HelveticaNeue"),unquote("Helvetica")
+$fg_hel_l = unquote("HelveticaNeue-Light")
+$fg_hel_m = unquote("HelveticaNeue-Medium")
+$fg_mobile = "Droid Sans",unquote("Roboto")
+$fg_geo = unquote("Geogia")
+$fg_def = unquote("sans-serif")
+
+
+// 明朝
+$fm_yu = "游明朝",unquote("YuMincho")
+$fm_hiragino = "ヒラギノ明朝 ProN W3","Hiragino Mincho ProN"
+$fm_ms = "ＭＳ Ｐ明朝","MS PMincho"
+$fm_def = unquote("serif")
+
+// コード
+$f_code = unquote("Consolas"),"Courier New",unquote("Courier"),unquote("Monaco"),unquote("monospace")
+
+
+// iOS/OS X用デフォルト(San Francisco)
+$f_apple = unquote("-apple-system")
+
+
+// デフォルトゴシック
+$fg = $f_apple,$fg_yu,$fg_hiragino,$fg_meyrio,$fg_ms,$fg_arial,$fg_mobile,$fg_def
+
+// デフォルト明朝
+$fm = $fm_yu,$fm_hiragino,$fm_ms,$fm_def
+
+// フォントデフォルト
+$_font_default = $fg
+
+
+// デフォルトフォントサイズ
+$_px_def = 14
+
+// デフォルトスペース
+$_space = 24px
+
+
+// 高さ
+$_home_header = 80px
+$_home_footer = 40px
+
+
+
+// CSS3 Cubic Bezier
+$E_liner = cubic-bezier(0.250, 0.250, 0.750, 0.750)
+$E_ease = cubic-bezier(0.250, 0.100, 0.250, 1.000)
+$E_easeIn = cubic-bezier(0.420, 0.000, 1.000, 1.000)
+$E_easeOut = cubic-bezier(0.000, 0.000, 0.580, 1.000)
+$E_easeInOut = cubic-bezier(0.420, 0.000, 0.580, 1.000)
+$E_easeInQuad = cubic-bezier(0.550, 0.085, 0.680, 0.530)
+$E_easeInCubic = cubic-bezier(0.550, 0.055, 0.675, 0.190)
+$E_easeInQuart = cubic-bezier(0.895, 0.030, 0.685, 0.220)
+$E_easeInQuint = cubic-bezier(0.755, 0.050, 0.855, 0.060)
+$E_easeInSine = cubic-bezier(0.470, 0.000, 0.745, 0.715)
+$E_easeInExpo = cubic-bezier(0.950, 0.050, 0.795, 0.035)
+$E_easeInCirc = cubic-bezier(0.600, 0.040, 0.980, 0.335)
+$E_easeInBack = cubic-bezier(0.600, 0, 0.735, 0.045)
+$E_easeOutQuad = cubic-bezier(0.250, 0.460, 0.450, 0.940)
+$E_easeOutCubic = cubic-bezier(0.215, 0.610, 0.355, 1.000)
+$E_easeOutQuart = cubic-bezier(0.165, 0.840, 0.440, 1.000)
+$E_easeOutQuint = cubic-bezier(0.230, 1.000, 0.320, 1.000)
+$E_easeOutSine = cubic-bezier(0.390, 0.575, 0.565, 1.000)
+$E_easeOutExpo = cubic-bezier(0.190, 1.000, 0.220, 1.000)
+$E_easeOutCirc = cubic-bezier(0.075, 0.820, 0.165, 1.000)
+$E_easeOutBack = cubic-bezier(0.175, 0.885, 0.320, 1.275)
+$E_easeInOutQuad = cubic-bezier(0.455, 0.030, 0.515, 0.955)
+$E_easeInOutCubic = cubic-bezier(0.645, 0.045, 0.355, 1.000)
+$E_easeInOutQuart = cubic-bezier(0.770, 0.000, 0.175, 1.000)
+$E_easeInOutQuint = cubic-bezier(0.860, 0.000, 0.070, 1.000)
+$E_easeInOutSine = cubic-bezier(0.445, 0.050, 0.550, 0.950)
+$E_easeInOutExpo = cubic-bezier(1.000, 0.000, 0.000, 1.000)
+$E_easeInOutCirc = cubic-bezier(0.785, 0.135, 0.150, 0.860)
+$E_easeInOutBack = cubic-bezier(0.680, -0.550, 0.265, 1.550)
+
+$ease_default = $E_ease
+$ease_delay_default = .3s
+$ease = $ease_delay_default $ease_default
+

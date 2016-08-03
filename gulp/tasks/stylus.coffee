@@ -46,15 +46,14 @@ g.task task.default, [], ->
       dest = "#{Config.dest.dev}/#{dir.out}"
       plz = funcPlz false
 
-  console.log dest
-
   return g.src files.default
   .pipe $.plumber
     errorHandler: (err)->
       flg = false
       Func.notifier err, task.default
       @.emit 'end'
-  .pipe $.stylus()
+  .pipe $.stylus
+    'include css': true
   .pipe $.bless
     force: true
   .pipe $.pleeease plz

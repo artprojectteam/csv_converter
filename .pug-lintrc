@@ -1,7 +1,6 @@
 {
   "validateIndentation": 2,
   "requireClassLiteralsBeforeAttributes": true,
-  "requireClassLiteralsBeforeIdLiterals": true,
   "requireIdLiteralsBeforeAttributes": true,
   "requireLowerCaseAttributes": true,
   "requireLowerCaseTags": true,
