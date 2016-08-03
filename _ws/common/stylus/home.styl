@@ -7,5 +7,206 @@
   padding: 0 $_space
 
 
-@import "_assets/pages/home/_file_drop.styl"
-@import "_assets/pages/home/_progress.styl"
+//*********** File Drop ***************//
+.fileDrop
+  $h = s('calc(60vh - %s)', $_home_header)
+  position: relative
+  width: 100%
+  height: $h
+  border: 3px dashed #cccccc
+  font-size: font-size-calc(30)
+  text-align: center
+  border-radius: 10px
+  color: #cccccc
+  transition: all $ease
+  box-sizing: border-box
+  display: table
+  &.dropping
+    background: #eeeeee
+
+  &-area
+    display: table-cell
+    vertical-align: middle
+  //&.res
+  //  height: 200px
+  //  line-height: 200px
+
+//*********** Option ***************//
+$sh = 40px
+.option
+  margin-top: $_space
+  display: table
+
+  &-title
+    font-size: font-size-calc(18)
+    font-weight: 600
+    margin-bottom: 0.5em
+
+.selected
+  display: table-cell
+  vertical-align: top
+  &-list
+    margin: 0
+    padding: 0
+    list-style: none
+    display: table
+    table-layout: fixed
+    border-radius: 5px
+    overflow: hidden
+
+.sList
+  display: table-cell
+  vertical-align: middle
+  border-left: 1px solid #fff
+  position: relative
+  &:first-child
+    border-left: none
+
+  label
+    display: block
+    height: $sh
+    line-height: $sh
+    text-align: center
+    width: 7em
+    background: #eeeeee
+    cursor: pointer
+    transition: all $ease
+    &:hover
+      background: $orange
+      color: $white
+    &.checked
+      background: $green
+      color: $white
+
+  input
+    position: absolute
+    top: 0
+    left: 0
+    z-index: -1
+    opacity: 0
+    visibility: hidden
+
+
+
+.lineCode
+  $re_flesh = 16px
+  display: table-cell
+  vertical-align: top
+  padding-left: 50px
+  position: relative
+
+  &-area
+    position: relative
+
+  &-input
+    height: $sh
+    line-height: $sh
+    box-sizing: border-box
+    padding: 0.5em ($re_flesh + 10px) 0.5em 0.5em
+    width: 16em
+
+  &-reflesh
+    position: absolute
+    top: 0
+    bottom: 0
+    right: 5px
+    display: block
+    width: $re_flesh
+    height: $re_flesh
+    margin: auto
+    background: $white
+    border-radius: ($re_flesh / 2)
+    text-align: center
+    font-size: 10px
+    box-sizing: border-box
+    cursor: pointer
+    transition: all $ease
+    background: #cccccc
+    color: $white
+    border: none
+    &:hover
+      background: $black
+    &:focus
+      outline: none
+    i
+      margin-left: -2px
+
+  &-fukidashi
+    $h = 30px
+    position: absolute
+    top: 0
+    bottom: 0
+    right: -100%
+    margin: auto
+    line-height: $h
+    height: $h
+    font-size: font-size-calc(11)
+    background: rgba($black, 0.9)
+    color: $white
+    transition: all $ease
+    transform: translate3d(-20px,0,0)
+    visibility: hidden
+    opacity: 0
+
+    p
+      position: relative
+      padding: 0 0.5em
+      box-sizing: border-box
+      margin: 0
+      &:before
+        $w = 6px
+        $c = $black
+        content: ""
+        position: absolute
+        top: 50%
+        left: -($w)
+        margin-top: -($w)
+        display: block
+        width: 0
+        height: 0
+        border-style: solid
+        border-width: $w $w $w 0
+        border-color: transparent $black transparent transparent
+
+  &-reflesh:hover + &-fukidashi
+    transform: translate3d(-10px,0,0)
+    visibility: visible
+    opacity: 1
+
+//*********** Progress ***************//
+.progress
+  position: fixed
+  bottom: 0
+  left: 0
+  width: 100%
+  background: rgba(#000000, 0.9)
+  transition: all $ease_delay_default $E_easeInOutBack
+  &[aria-hidden="true"]
+    transform: translate(0, 100%)
+  &[aria-hidden="false"]
+    transform: translate(0, 0)
+
+  &-container
+    position: relative
+    padding: $_space
+  &-bar
+    width: 100%
+    height: $_space
+    background: #fff
+
+  &-text
+    position: absolute
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+    margin: auto
+    width: 100%
+    height: 1em
+    color: #999999
+    text-align: center
+    font-weight: 700
+    font-size: font-size-calc(20)
+
+
+

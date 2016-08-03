@@ -12,7 +12,13 @@ module.exports = angular
     ERROR: {
       MULTIPLE: 'コンバートできるファイルは1枚のみです',
       FILE_TYPE: 'コンパートできるファイルタイプはtext/csvのみです'
-    }
+    },
+    TYPE: {
+      JSON: {id:'json', name:'JSON'},
+      SERIALIZE: {id:'serialize', name:'Serialize'},
+      PHP: {id:'php', name:'PHP'}
+    },
+    LINE_CODE: '\\n\\r'
   })
   .run(function($rootScope, FILES){
     $rootScope.FILES = FILES;
@@ -30,6 +36,14 @@ module.exports = angular
     $scope.progress = 0;
     $scope.result = {
       hidden: true
+    };
+    
+    $scope.selected = $rootScope.FILES.TYPE;
+    $scope.lineCode = $rootScope.FILES.LINE_CODE;
+    
+    $scope.convert = {
+      type: $rootScope.FILES.TYPE.JSON.id,
+      line: $scope.lineCode
     };
     
     /**
@@ -117,12 +131,25 @@ module.exports = angular
       $event.dataTransfer.dropEffect = 'copy';
       $('#fileDrop').addClass('dropping');
     };
+  
+    /**
+     * 改行コードリセット
+     */
+    $scope.onLineReset = ()=>{
+      $scope.convert.line = $rootScope.FILES.LINE_CODE;
+    };
     
-    $scope.doConvert = ($event, type)=>{
+    /*$scope.doConvert = ($event, type)=>{
       // e.preventDefault();
       // console.log($(this).data('convert'));
       console.log($event, type);
-    };
+    };*/
+    
+    
+    
+    $scope.test = ()=>{
+      console.log($scope.convert);
+    }
   }])
   .directive('ngDrop', function($parse){
     return {

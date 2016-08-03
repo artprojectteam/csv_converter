@@ -37,10 +37,14 @@ html(lang="ja")
       link(rel="stylesheet", href="#{PATH_CSS}/style.css", media="all")
 
     block header_js
+      script(src="https://use.fontawesome.com/c3449bccde.js", async=true, defer=true)
 
     if MODE_ENV === CMN.mode._p
       include ../_partials/_analytics
 
   body
-    block contents
+    .wrapper
+      block contents
+
+    include ../_partials/_footer
     block footer_js

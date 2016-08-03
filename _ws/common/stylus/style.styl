@@ -16,6 +16,8 @@ body
   font: 100% / 1 $_font_default
   font-weight: normal
   -webkit-text-size-adjust: 100%
+  min-height: 100vh
+  position: relative
 
 h1
 h2
@@ -27,5 +29,17 @@ h6
   font-weight: normal
   margin: 0
 
+
+//[ng\:cloak]
+[ng-cloak]
+[data-ng-cloak]
+[x-ng-cloak]
+.ng-cloak
+.x-ng-cloak
+  display: none!important
+
+
+.wrapper
+  padding-bottom: ($_home_footer + $_space)
 
 @import "_assets/_partials/_footer.styl"
