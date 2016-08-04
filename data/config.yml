@@ -1,6 +1,6 @@
 title: CSV Converter
 author: Nobuyuki Kondo
-description: CSVファイルをシリアライズ、JSON、phpファイルに整形してダウンロードすることが出来ます
+description: CSVファイルをJSON、シリアライズファイルに整形してダウンロードすることが出来ます
 
 
 router:
