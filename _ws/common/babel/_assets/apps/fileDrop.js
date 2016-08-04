@@ -18,7 +18,8 @@ module.exports = angular
       SERIALIZE: {id:'serialize', name:'Serialize'},
       PHP: {id:'php', name:'PHP'}
     },
-    LINE_CODE: '\\n\\r'
+    LINE_CODE: '\\n\\r',
+    TITLE_LINE: true
   })
   .run(function($rootScope, FILES){
     $rootScope.FILES = FILES;
@@ -40,10 +41,14 @@ module.exports = angular
     
     $scope.selected = $rootScope.FILES.TYPE;
     $scope.lineCode = $rootScope.FILES.LINE_CODE;
+    $scope.titleLine = $rootScope.FILES.TITLE_LINE;
+    
+    $scope.titleLine_default = $rootScope.FILES.TITLE_LINE;
     
     $scope.convert = {
       type: $rootScope.FILES.TYPE.JSON.id,
-      line: $scope.lineCode
+      line: $scope.lineCode,
+      title: $scope.titleLine
     };
     
     /**

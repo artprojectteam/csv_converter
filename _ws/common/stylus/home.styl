@@ -35,7 +35,12 @@
 $sh = 40px
 .option
   margin-top: $_space
-  display: table
+
+  &-primary
+    display: table
+
+  &-secondary
+    margin-top: $_space
 
   &-title
     font-size: font-size-calc(18)
@@ -129,6 +134,8 @@ $sh = 40px
     &:focus
       outline: none
     i
+      position: relative
+      top: -1px
       margin-left: -2px
 
   &-fukidashi
@@ -172,6 +179,36 @@ $sh = 40px
     transform: translate3d(-10px,0,0)
     visibility: visible
     opacity: 1
+
+.titleLine
+  position: relative
+  &-check
+    position: absolute
+    visibility: hidden
+    opacity: 0
+    z-index: -1
+  &-label
+    display: inline-block
+    vertical-align: middle
+    position: relative
+    padding-left: 1.6em
+    cursor: pointer
+    user-select: none
+    &:before
+      font-size: 20px
+      position: absolute
+      top: -3px
+      left: 0
+      content: "\f096"
+      font-family: FontAwesome
+      display: inline-block
+      vertical-align: text-bottom
+      color: #999999
+    &.checked:before
+      content: "\f046"
+      color: $green
+
+
 
 //*********** Progress ***************//
 .progress

@@ -34,27 +34,34 @@ block contents
         .fileDrop-area ここにCSVファイルを1枚だけドロップ
 
       .option
-        .selected
-          h2.option-title Convert to ...
-          ul.selected-list
-            li.sList(ng-repeat="select in selected", ng-cloak=true)
-              input.jsSelect-Type(id="sList-{{select.id}}", type="radio", name="type", value="{{select.id}}", ng-checked="$index === 0", ng-model="convert.type")
-              label(for="sList-{{select.id}}", ng-class="{checked: convert.type === select.id}") {{select.name}}
+        .option-primary
+          .selected
+            h2.option-title Convert to ...
+            ul.selected-list
+              li.sList(ng-repeat="select in selected", ng-cloak=true)
+                input.jsSelect-Type(id="sList-{{select.id}}", type="radio", name="type", value="{{select.id}}", ng-checked="$index === 0", ng-model="convert.type")
+                label(for="sList-{{select.id}}", ng-class="{checked: convert.type === select.id}") {{select.name}}
 
-        .lineCode
-          h2.option-title 改行コード
+          .lineCode
+            h2.option-title 改行コード
 
-          .lineCode-area(ng-cloak=true)
-            input#lineCode.lineCode-input(type="text", name="lineCode", value="{{lineCode}}", ng-model="convert.line")
+            .lineCode-area(ng-cloak=true)
+              input#lineCode.lineCode-input(type="text", name="lineCode", value="{{lineCode}}", ng-model="convert.line")
 
-            button.lineCode-reflesh(type="button", ng-click="onLineReset()"): i.fa.fa-times
+              button.lineCode-reflesh(type="button", ng-click="onLineReset()"): i.fa.fa-times
 
-            .lineCode-fukidashi
-              p 押すと改行コードは初期値になります
+              .lineCode-fukidashi
+                p 押すと改行コードは初期値になります
+
+        .option-secondary
+          .titleLine
+            input#titleLine.titleLine-check(type="checkbox", name="titleLine", value="{{titleLine}}", ng-model="convert.title", ng-checked="true")
+            label.titleLine-label(for="titleLine", ng-class="{checked: convert.title === titleLine_default}") 1行目を配列のキー名にする
 
 
 
-      //-button(ng-click="test()", ng-disabled="convert.line === ''") さんぷる
+      //-
+        button(ng-click="test()", ng-disabled="convert.line === ''") さんぷる
 
 
 
