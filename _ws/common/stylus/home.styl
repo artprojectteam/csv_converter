@@ -6,30 +6,30 @@
 .container
   padding: 0 $_space
 
-
 //*********** File Drop ***************//
 .fileDrop
   $h = s('calc(60vh - %s)', $_home_header)
   position: relative
+  display: table
+  box-sizing: border-box
   width: 100%
   height: $h
   border: 3px dashed #cccccc
-  font-size: font-size-calc(30)
-  text-align: center
   border-radius: 10px
   color: #cccccc
+  text-align: center
+  font-size: font-size-calc(30)
   transition: all $ease
-  box-sizing: border-box
-  display: table
   &.dropping
     background: #eeeeee
 
   &-area
     display: table-cell
     vertical-align: middle
-  //&.res
-  //  height: 200px
-  //  line-height: 200px
+
+//&.res
+//  height: 200px
+//  line-height: 200px
 
 //*********** Option ***************//
 $sh = 40px
@@ -43,92 +43,90 @@ $sh = 40px
     margin-top: $_space
 
   &-title
-    font-size: font-size-calc(18)
-    font-weight: 600
     margin-bottom: 0.5em
+    font-weight: 600
+    font-size: font-size-calc(18)
 
 .selected
   display: table-cell
   vertical-align: top
   &-list
+    display: table
+    overflow: hidden
     margin: 0
     padding: 0
-    list-style: none
-    display: table
-    table-layout: fixed
     border-radius: 5px
-    overflow: hidden
+    table-layout: fixed
+    list-style: none
 
 .sList
-  display: table-cell
-  vertical-align: middle
-  border-left: 1px solid #fff
   position: relative
+  display: table-cell
+  border-left: 1px solid #fff
+  vertical-align: middle
   &:first-child
     border-left: none
 
   label
     display: block
-    height: $sh
-    line-height: $sh
-    text-align: center
     width: 7em
+    height: $sh
     background: #eeeeee
+    text-align: center
+    line-height: $sh
     cursor: pointer
     transition: all $ease
     &:hover
       background: $orange
       color: $white
     &.checked
-      background: $green
-      color: $white
+      background: $key_color
+      color: $key_text_color
 
   input
     position: absolute
     top: 0
     left: 0
     z-index: -1
-    opacity: 0
     visibility: hidden
-
-
+    opacity: 0
 
 .lineCode
   $re_flesh = 16px
-  display: table-cell
-  vertical-align: top
-  padding-left: 50px
   position: relative
+  display: table-cell
+  padding-left: 50px
+  vertical-align: top
 
   &-area
     position: relative
 
   &-input
-    height: $sh
-    line-height: $sh
     box-sizing: border-box
     padding: 0.5em ($re_flesh + 10px) 0.5em 0.5em
     width: 16em
+    height: $sh
+    line-height: $sh
 
   &-reflesh
     position: absolute
     top: 0
-    bottom: 0
     right: 5px
+    bottom: 0
     display: block
+    box-sizing: border-box
+    margin: auto
     width: $re_flesh
     height: $re_flesh
-    margin: auto
-    background: $white
+    border: none
     border-radius: ($re_flesh / 2)
-    text-align: center
-    font-size: 10px
-    box-sizing: border-box
-    cursor: pointer
-    transition: all $ease
+    background: $white
     background: #cccccc
     color: $white
-    border: none
+    text-align: center
+    font-size: 10px
+    cursor: pointer
+    transition: all $ease
     &:hover
       background: $black
     &:focus
@@ -142,73 +140,71 @@ $sh = 40px
     $h = 30px
     position: absolute
     top: 0
-    bottom: 0
     right: -100%
+    bottom: 0
+    visibility: hidden
     margin: auto
-    line-height: $h
     height: $h
-    font-size: font-size-calc(11)
     background: rgba($black, 0.9)
     color: $white
-    transition: all $ease
-    transform: translate3d(-20px,0,0)
-    visibility: hidden
+    font-size: font-size-calc(11)
+    line-height: $h
     opacity: 0
+    transition: all $ease
+    transform: translate3d(-20px, 0, 0)
 
     p
       position: relative
-      padding: 0 0.5em
       box-sizing: border-box
       margin: 0
+      padding: 0 0.5em
       &:before
         $w = 6px
         $c = $black
-        content: ""
         position: absolute
         top: 50%
         left: -($w)
-        margin-top: -($w)
         display: block
+        margin-top: -($w)
         width: 0
         height: 0
-        border-style: solid
         border-width: $w $w $w 0
+        border-style: solid
         border-color: transparent $black transparent transparent
+        content: ""
 
   &-reflesh:hover + &-fukidashi
-    transform: translate3d(-10px,0,0)
     visibility: visible
     opacity: 1
+    transform: translate3d(-10px, 0, 0)
 
 .titleLine
   position: relative
   &-check
     position: absolute
+    z-index: -1
     visibility: hidden
     opacity: 0
-    z-index: -1
   &-label
-    display: inline-block
-    vertical-align: middle
     position: relative
+    display: inline-block
     padding-left: 1.6em
+    vertical-align: middle
     cursor: pointer
     user-select: none
     &:before
-      font-size: 20px
       position: absolute
       top: -3px
       left: 0
-      content: "\f096"
-      font-family: FontAwesome
       display: inline-block
-      vertical-align: text-bottom
       color: #999999
+      content: "\f096"
+      vertical-align: text-bottom
+      font-size: 20px
+      font-family: FontAwesome
     &.checked:before
+      color: $key_color
       content: "\f046"
-      color: $green
-
-
 
 //*********** Progress ***************//
 .progress
@@ -218,6 +214,7 @@ $sh = 40px
   width: 100%
   background: rgba(#000000, 0.9)
   transition: all $ease_delay_default $E_easeInOutBack
+  z-index: 200
   &[aria-hidden="true"]
     transform: translate(0, 100%)
   &[aria-hidden="false"]
@@ -244,6 +241,97 @@ $sh = 40px
     text-align: center
     font-weight: 700
     font-size: font-size-calc(20)
+
+//*********** Feed Back ***************//
+.feedback
+  margin-top: $_space
+  font-size: font-size-calc(15)
+
+.read
+  padding: $_space
+  border: 1px solid #cccccc
+  width: 100%
+  display: block
+  box-sizing: border-box
+  &-data
+    margin: 0
+    padding: 0
+
+  &-file
+    display: inline
+    &-name
+      display: inline-block
+      margin: 0 0 1em .5em
+      padding: 0
+      font-weight: 600
+
+  &-size
+    display: inline
+    &:before
+      @extend $set-br
+    &-name
+      display: inline-block
+      margin-left: .5em
+      padding: 0
+      font-weight: 600
+
+.convert
+  margin-top: $_space
+
+  &-button
+    border: none
+    width: 100px
+    height: 50px
+    text-align: center
+    background: $red
+    color: $key_text_color
+    cursor: pointer
+    position: relative
+    z-index: 10
+    overflow: hidden
+    transition: background $ease
+    &:before
+      display: block
+      content: ""
+      width: 50px
+      height: 50px
+      background: $blue
+      position: absolute
+      top: 0
+      bottom: 0
+      right: 0
+      left: 0
+      z-index: 11
+      margin: auto
+      transition: transform $ease
+      transform: scale(0)
+      border-radius: 25px 25px
+      transform-origin: 50% 50%
+    &:hover:before
+      transform: scale(2.5)
+
+    &:focus
+      outline: none
+
+    &[disabled="disabled"]
+      background: #ddd
+      content: normal
+      pointer-events: none
+      &:hover:before
+        transform: scale(0)
+
+
+    span
+      user-select: none
+      position: relative
+      z-index: 12
+
+
+
+
+
+
+
 
 
 

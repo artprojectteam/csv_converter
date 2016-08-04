@@ -1,5 +1,9 @@
 @require "_variable.styl"
 
+$set-br
+  content: "\A"
+  white-space: pre
+
 font-size-calc($target, $parent = $_px_def, $unit = unquote('em'))
   if $unit == '%'
     return unit((round(($target / $parent) * 100, 3)), $unit)

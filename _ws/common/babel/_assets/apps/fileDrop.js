@@ -44,6 +44,7 @@ module.exports = angular
     $scope.titleLine = $rootScope.FILES.TITLE_LINE;
     
     $scope.titleLine_default = $rootScope.FILES.TITLE_LINE;
+    $scope.file = {};
     
     $scope.convert = {
       type: $rootScope.FILES.TYPE.JSON.id,
@@ -105,6 +106,8 @@ module.exports = angular
           $scope.isResult = true;
         });
         
+        $scope.file = evt.target.result;
+        
         setTimeout(()=>{
           $('#fileDrop').addClass('res');
           $('#progress').attr('aria-hidden', 'true');
@@ -143,18 +146,17 @@ module.exports = angular
     $scope.onLineReset = ()=>{
       $scope.convert.line = $rootScope.FILES.LINE_CODE;
     };
+  
+  
+    /**
+     * コンバート実行
+     */
+    $scope.doConvert = ()=>{
+      console.log($scope.convert, $scope.file);
+    };
     
-    /*$scope.doConvert = ($event, type)=>{
-      // e.preventDefault();
-      // console.log($(this).data('convert'));
-      console.log($event, type);
-    };*/
     
     
-    
-    $scope.test = ()=>{
-      console.log($scope.convert);
-    }
   }])
   .directive('ngDrop', function($parse){
     return {
