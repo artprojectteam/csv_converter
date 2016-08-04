@@ -11,7 +11,8 @@ module.exports = angular
   .constant('FILES', {
     ERROR: {
       MULTIPLE: 'コンバートできるファイルは1枚のみです',
-      FILE_TYPE: 'コンパートできるファイルタイプはtext/csvのみです'
+      FILE_TYPE: 'コンパートできるファイルタイプはtext/csvのみです',
+      READ: 'ファイルを読み取れませんでした'
     },
     TYPE: {
       JSON: {id:'json', name:'JSON'},
@@ -24,20 +25,15 @@ module.exports = angular
   .run(function($rootScope, FILES){
     $rootScope.FILES = FILES;
   })
-  .factory('DropError', function(){
-    /* memo: Error処理 */
-    return {
-      message: (text)=>{
-        console.log(text);
-      }
-    };
-  })
-  .controller('DropController', ['$rootScope', '$scope', '$http', 'DropError', function($rootScope, $scope, $http, DropError){
+  .controller('DropController', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http){
     $scope.isResult = false;
+    $scope.isDropError = false;
     $scope.progress = 0;
     $scope.result = {
       hidden: true
     };
+    
+    $scope.dropErrorMsg = '';
     
     $scope.selected = $rootScope.FILES.TYPE;
     $scope.lineCode = $rootScope.FILES.LINE_CODE;
@@ -47,6 +43,7 @@ module.exports = angular
     $scope.file = {};
     
     $scope.convert = {
+      name: '',
       type: $rootScope.FILES.TYPE.JSON.id,
       line: $scope.lineCode,
       title: $scope.titleLine
@@ -66,7 +63,9 @@ module.exports = angular
       
       if(files.length > 1){
         // ファイルが複数の場合はエラー
-        DropError.message($rootScope.FILES.ERROR.MULTIPLE);
+        $scope.isDropError = true;
+        $scope.isResult = false;
+        $scope.dropErrorMsg = $rootScope.FILES.ERROR.MULTIPLE;
         return false;
       }
       
@@ -74,7 +73,9 @@ module.exports = angular
       
       if(file.type !== 'text/csv'){
         // CSV以外はエラー
-        DropError.message($rootScope.FILES.ERROR.FILE_TYPE);
+        $scope.isDropError = true;
+        $scope.isResult = false;
+        $scope.dropErrorMsg = $rootScope.FILES.ERROR.FILE_TYPE;
         return false;
       }
       
@@ -88,7 +89,9 @@ module.exports = angular
             hidden: false,
             file: file.name,
             size: CalcFileSize(file.size)
-          }
+          };
+          
+          $scope.convert.name = file.name;
         });
       };
       
@@ -104,6 +107,7 @@ module.exports = angular
         /* memo:処理完了後 */
         $scope.$apply(()=>{
           $scope.isResult = true;
+          $scope.isDropError = false;
         });
         
         $scope.file = evt.target.result;
@@ -123,6 +127,9 @@ module.exports = angular
       
       reader.onerror = (stuff)=>{
         /* memo:エラー */
+        $scope.isDropError = true;
+        $scope.isResult = false;
+        $scope.dropErrorMsg = $rootScope.FILES.ERROR.READ;
       };
       
       reader.readAsDataURL(file);   // ファイル読み込み
@@ -194,11 +201,23 @@ module.exports = angular
       replace: true
     }
   })
-  .directive('resultArea', ['$compile', function($compile){
+  .directive('resultArea', [function(){
     return {
       restrict: 'AE',
       transclude: true,
       templateUrl: 'angular/result.html',
+      scope: {
+        value: '='
+      },
+      replace: true,
+      link: (scope, elem, attrs)=>{}
+    }
+  }])
+  .directive('dropErrorArea', [function(){
+    return {
+      restrict: 'AE',
+      transclude: true,
+      templateUrl: 'angular/dropError.html',
       scope: {
         value: '='
       },

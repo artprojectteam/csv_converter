@@ -25,13 +25,15 @@ append footer_js
   script(src="#{PATH_JS}/Run.js")
 
 block contents
-  .wrapper(ng-app="csvApp", ng-controller="CsvController as csv")
+  .home(ng-app="csvApp", ng-controller="CsvController as csv")
     header.header
       h1.header-title= config.title
 
     main.container(role="main", ng-controller="DropController as drops")
       #fileDrop.fileDrop(ng-drop="drop($event)", ng-dragover="dragOver($event)")
         .fileDrop-area ここにCSVファイルを1枚だけドロップ
+
+      drop-error-area(value="dropErrorMsg", ng-show="isDropError")
 
       .option
         .option-primary
@@ -59,12 +61,6 @@ block contents
             label.titleLine-label(for="titleLine", ng-class="{checked: convert.title === titleLine_default}") 1行目を配列のキー名にする
 
 
-
-      //-
-        button(ng-click="test()", ng-disabled="convert.line === ''") さんぷる
-
-
-        include _assets/_pages/home/_sample
 
       result-area(value="result", ng-show="isResult")
 
