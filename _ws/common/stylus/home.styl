@@ -288,11 +288,12 @@ $sh = 40px
 
 .convert
   margin-top: $_space
+  position: relative
 
   &-button
     border: none
-    width: 100px
     height: 50px
+    width: 150px
     text-align: center
     background: $red
     color: $key_text_color
@@ -319,7 +320,7 @@ $sh = 40px
       border-radius: 25px 25px
       transform-origin: 50% 50%
     &:hover:before
-      transform: scale(2.5)
+      transform: scale(3.5)
 
     &:focus
       outline: none
@@ -337,6 +338,14 @@ $sh = 40px
       position: relative
       z-index: 12
 
+
+  &-download
+    position: absolute
+    top: 0
+    left: 0
+    z-index: -1
+    opacity: 0
+    visibility: hidden
 
 
 

@@ -15,17 +15,17 @@ module.exports = angular
       READ: 'ファイルを読み取れませんでした'
     },
     TYPE: {
-      JSON: {id:'json', name:'JSON'},
-      SERIALIZE: {id:'serialize', name:'Serialize'},
-      PHP: {id:'php', name:'PHP'}
+      JSON: {id: 'json', name: 'JSON'},
+      SERIALIZE: {id: 'serialize', name: 'Serialize'}
+      // PHP: {id: 'php', name: 'PHP'}
     },
-    LINE_CODE: '\\n\\r',
+    LINE_CODE: '\\r\\n',
     TITLE_LINE: true
   })
   .run(function($rootScope, FILES){
     $rootScope.FILES = FILES;
   })
-  .controller('DropController', ['$rootScope', '$scope', '$http', function($rootScope, $scope, $http){
+  .controller('DropController', ['$rootScope', '$scope', '$http', '$httpParamSerializerJQLike', function($rootScope, $scope, $http, $httpParamSerializerJQLike){
     $scope.isResult = false;
     $scope.isDropError = false;
     $scope.progress = 0;
@@ -49,6 +49,8 @@ module.exports = angular
       title: $scope.titleLine
     };
     
+    $scope.download_name = '';
+    
     /**
      * ファイルドロップ後
      * @param $event
@@ -56,9 +58,9 @@ module.exports = angular
     $scope.drop = ($event)=>{
       $event.stopPropagation();
       $event.preventDefault();
-  
+      
       $('#fileDrop').removeClass('dropping');
-     
+      
       let files = $event.dataTransfer.files;
       
       if(files.length > 1){
@@ -66,6 +68,7 @@ module.exports = angular
         $scope.isDropError = true;
         $scope.isResult = false;
         $scope.dropErrorMsg = $rootScope.FILES.ERROR.MULTIPLE;
+        $('#progress').attr('aria-hidden', 'true');
         return false;
       }
       
@@ -76,6 +79,7 @@ module.exports = angular
         $scope.isDropError = true;
         $scope.isResult = false;
         $scope.dropErrorMsg = $rootScope.FILES.ERROR.FILE_TYPE;
+        $('#progress').attr('aria-hidden', 'true');
         return false;
       }
       
@@ -134,7 +138,7 @@ module.exports = angular
       
       reader.readAsDataURL(file);   // ファイル読み込み
     };
-  
+    
     /**
      * ファイルドロップ中
      * @param $event
@@ -146,24 +150,78 @@ module.exports = angular
       $event.dataTransfer.dropEffect = 'copy';
       $('#fileDrop').addClass('dropping');
     };
-  
+    
     /**
      * 改行コードリセット
      */
     $scope.onLineReset = ()=>{
       $scope.convert.line = $rootScope.FILES.LINE_CODE;
     };
-  
-  
+    
+    
     /**
      * コンバート実行
      */
     $scope.doConvert = ()=>{
-      console.log($scope.convert, $scope.file);
+      $scope.progress = 50;
+      $('#progress').attr('aria-hidden', 'false');
+      let ops = {
+        type: $scope.convert.type,
+        line: $scope.convert.line,
+        title: $scope.convert.title
+      };
+      
+      
+      $http({
+        method: 'POST',
+        url: 'application/convert.php',
+        transformRequest: $httpParamSerializerJQLike,
+        headers: {
+          'Content-Type' : 'application/x-www-form-urlencoded;charset=utf-8'
+        },
+        data: {
+          option: ops,
+          d: $scope.file
+        }
+      })
+        .success((data, status, headers, config)=>{
+          let content_type = '',
+            file_name = $scope.convert.name.replace(/\.csv/, ''),
+            res;
+          
+          switch(ops.type){
+            case $rootScope.FILES.TYPE.JSON.id:
+              content_type = 'application\/json';
+              res = JSON.stringify(data);
+              $scope.download_name = `${file_name}.json`;
+              break;
+            case $rootScope.FILES.TYPE.SERIALIZE.id:
+              content_type = 'plain\/text';
+              res = data;
+              $scope.download_name = `${file_name}.serialize`;
+              break;
+            default:
+              break;
+          }
+          
+          let blob = new Blob([res], {'type': content_type});
+          
+          // todo: ブラウザごとの挙動を追加
+          window.URL = window.URL || window.webkitURL;
+          $scope.progress = 100;
+          
+          setTimeout(()=>{
+            $('#download')
+              .attr('href', window.URL.createObjectURL(blob))
+              .trigger('click');
+            $('#progress').attr('aria-hidden', 'true');
+          }, 100);
+          
+        })
+        .error((data, status, headers, config)=>{
+          console.log('失敗');
+        });
     };
-    
-    
-    
   }])
   .directive('ngDrop', function($parse){
     return {
@@ -172,7 +230,7 @@ module.exports = angular
         element.bind('drop', (ev)=>{
           let fn = $parse(attrs.ngDrop);
           $scope.$apply(()=>{
-            fn($scope, {$event:ev});
+            fn($scope, {$event: ev});
           });
         });
       }
@@ -185,7 +243,7 @@ module.exports = angular
         element.bind('dragover', (ev)=>{
           let fn = $parse(attrs.ngDragover);
           $scope.$apply(()=>{
-            fn($scope, {$event:ev});
+            fn($scope, {$event: ev});
           });
         });
       }
@@ -210,7 +268,8 @@ module.exports = angular
         value: '='
       },
       replace: true,
-      link: (scope, elem, attrs)=>{}
+      link: (scope, elem, attrs)=>{
+      }
     }
   }])
   .directive('dropErrorArea', [function(){
@@ -222,6 +281,7 @@ module.exports = angular
         value: '='
       },
       replace: true,
-      link: (scope, elem, attrs)=>{}
+      link: (scope, elem, attrs)=>{
+      }
     }
   }]);

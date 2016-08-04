@@ -1,2 +1,4 @@
 .convert
-  button.convert-button(ng-click="$parent.doConvert()", ng-disabled="$parent.convert.line === ''"): span 実行
+  button.convert-button(ng-click="$parent.doConvert()", ng-disabled="$parent.convert.line === ''"): span ダウンロード
+
+  a#download.convert-download(href="{{$parent.download_name}}", download="{{$parent.download_name}}", target="_blank") download
