@@ -21,10 +21,10 @@ $data = base64_decode(str_replace($mime, '', $encode_data));
 $data = mb_convert_encoding($data, 'UTF-8', 'UTF-8, sjis-win, SJIS, eucjp-win');    // 文字コードをUTF-8に変換
 
 // データを配列に変換
-$_substitution = '<csv_convert/n>';
+$_substitution = '[csv_convert/vv]';
 $csv_arr = str_replace($br_code, $_substitution, $data);
-
 $csv_arr = explode($_substitution, $csv_arr);
+
 
 // 配列内のCSVデータをパース
 $csv_temp = array();
@@ -51,7 +51,9 @@ switch($option['title']){
       
       foreach($temp as $k=>$v){
         $key = $csv_temp[0][$_n];
-        $str = htmlspecialchars($v, ENT_QUOTES, 'UTF-8');
+        $_c = trim($v, " \t\n\r\0\x0B");
+        $_c = str_replace(array("\r\n", "\r", "\n"), '<br>', $_c);
+        $str = htmlspecialchars($_c, ENT_QUOTES, 'UTF-8');
         
         if($key === '' && $str === '') continue;
         
