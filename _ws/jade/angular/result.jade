@@ -1,0 +1,10 @@
+.feedback(aria-hidden="{{value.hidden}}")
+  output.read
+    dl.read-data
+      dt.read-file File:
+      dd.read-file-name {{value.file}}
+      dt.read-size File Size:
+      dd.read-size-name {{value.size}}
+
+  include ../_assets/_pages/home/_convert
+

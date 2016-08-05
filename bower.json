@@ -1,6 +1,6 @@
 {
   "name": "csv_converter",
-  "description": "CSV to json,php files",
+  "description": "CSV to serialize,json,php files",
   "main": "",
   "authors": [
     "Nobuyuki Kondo"
@@ -14,5 +14,13 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "normalize-css": "~4.2.0",
+    "angular": "~1.5.7",
+    "angular-animate": "~1.5.7",
+    "jquery": "~3.1.0",
+    "zepto": "~1.1.6",
+    "browzection": "~1.1.7"
+  }
 }

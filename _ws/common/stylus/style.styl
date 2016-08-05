@@ -1,0 +1,76 @@
+@charset "UTF-8"
+@import url("http://fonts.googleapis.com/earlyaccess/notosansjapanese.css")
+@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700")
+@require "_assets/_ini.styl"
+@import "../../../bower_components/normalize-css/normalize.css"
+
+//*********** Reset ***************//
+html
+  font-size: unit($_px_def, 'px')
+
+body
+  margin: 0
+  padding: 0
+  color: #333
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+  letter-spacing: 0.05em
+  font: 100% / 1 $_font_default
+  font-weight: normal
+  -webkit-text-size-adjust: 100%
+  min-height: 100vh
+  position: relative
+
+h1
+h2
+h3
+h4
+h5
+h6
+  font-size: 100%
+  font-weight: normal
+  margin: 0
+
+
+//[ng\:cloak]
+[ng-cloak]
+[data-ng-cloak]
+[x-ng-cloak]
+.ng-cloak
+.x-ng-cloak
+  display: none!important
+
+
+.wrapper
+  padding-bottom: ($_home_footer + $_space)
+
+@import "_assets/_partials/_footer.styl"
+
+
+
+.noSupport
+  position: fixed
+  top: 0
+  left: 0
+  width: 100vw
+  height: 100vh
+  z-index: 999
+  background: rgba(#000000, 0.8)
+  color: #ffffff
+  display: table
+
+  &-container
+    display: table-cell
+    width: 100%
+    height: 100%
+    vertical-align: middle
+    text-align: center
+
+    h1
+      font-size: font-size-calc(40)
+      font-weight: 600
+      margin-bottom: 1em
+
+    p
+      font-size: font-size-calc(20)
+      margin: 0

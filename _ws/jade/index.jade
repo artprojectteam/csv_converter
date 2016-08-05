@@ -1,0 +1,73 @@
+extends _assets/_layouts/_base
+
+prepend vars
+  -
+    var $root = './'
+    var $page_path = '/'
+    var $fb_flg = true
+    var $fb_image = ''
+
+    var $title = ''
+    var $description = ''
+
+
+append vars
+  -
+    //- OGP関係
+    var $ogp_type = 'website'
+    var $ogp_url = URI + $page_path    //- ページURL
+    var $ogp_image = $fb_image !== '' ? URI + $fb_image : URI + config.ogp.image
+
+append css
+  link(rel="stylesheet", href="#{PATH_CSS}/home.css", media="all")
+
+append footer_js
+  script(src="#{PATH_JS}/Run.js")
+
+block contents
+  .home(ng-app="csvApp", ng-controller="CsvController as csv")
+    header.header
+      h1.header-title= config.title
+
+    main.container(role="main", ng-controller="DropController as drops")
+      #fileDrop.fileDrop(ng-drop="drop($event)", ng-dragover="dragOver($event)")
+        .fileDrop-area ここにCSVファイルを1枚だけドロップ
+
+      drop-error-area(value="dropErrorMsg", ng-show="isDropError")
+
+      .option
+        .option-primary
+          .selected
+            h2.option-title Convert to ...
+            ul.selected-list
+              li.sList(ng-repeat="select in selected", ng-cloak=true)
+                input.jsSelect-Type(id="sList-{{select.id}}", type="radio", name="type", value="{{select.id}}", ng-checked="$index === 0", ng-model="convert.type")
+                label(for="sList-{{select.id}}", ng-class="{checked: convert.type === select.id}") {{select.name}}
+
+          .lineCode
+            h2.option-title 改行コード
+
+            .lineCode-area(ng-cloak=true)
+              input#lineCode.lineCode-input(type="text", name="lineCode", value="{{lineCode}}", ng-model="convert.line")
+
+              button.lineCode-reflesh(type="button", ng-click="onLineReset()"): i.fa.fa-times
+
+              .lineCode-fukidashi
+                p 押すと改行コードは初期値になります
+
+        .option-secondary
+          .titleLine
+            input#titleLine.titleLine-check(type="checkbox", name="titleLine", value="{{titleLine}}", ng-model="convert.title", ng-checked="true")
+            label.titleLine-label(for="titleLine", ng-class="{checked: convert.title === titleLine_default}") 1行目を配列のキー名にする
+
+
+
+      result-area(value="result", ng-show="isResult")
+
+      #progress.progress(aria-hidden="{{isProgress}}")
+        .progress-container
+          progressbar(value="progress")
+
+    no-support(ng-if="isNotSupport")
+
+
