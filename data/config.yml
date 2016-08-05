@@ -8,5 +8,5 @@ router:
 
 # OGP
 ogp:
-  image: /share.jpg
+  image: /ogp.png
   app_id: ""
