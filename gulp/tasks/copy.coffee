@@ -70,6 +70,8 @@ g.task task.default, ->
   else
     dest = Config.dest.pro
 
+  console.log dest
+
   return g.src files
   .pipe $.changed dest
   .pipe g.dest "#{dest}/"

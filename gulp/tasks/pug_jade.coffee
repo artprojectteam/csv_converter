@@ -66,7 +66,7 @@ g.task task.default, [task.config], ->
       pretty = !Config.conf.minify
     else
       dest = Config.dest.dev
-      pretty = !Config.conf.minify
+      pretty = true
 
 
   return g.src files.default

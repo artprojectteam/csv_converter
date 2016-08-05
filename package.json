@@ -21,7 +21,7 @@
     "clean:image:production": "gulp clean:image --production",
     "clean:image:all": "gulp clean:image --all",
     "d:copy": "gulp copy",
-    "p:copy": "gulp copy --procuction",
+    "p:copy": "gulp copy --production",
     "d:image": "gulp image",
     "p:image": "gulp image --production",
     "serve:php": "gulp serve:php",
@@ -35,7 +35,7 @@
       "_d": "development",
       "_p": "production"
     },
-    "minify": false,
+    "minify": true,
     "uri": "http://tools.artprojectteam.jp/csv",
     "babelify": "Run.js",
     "dir": {
