@@ -64,8 +64,10 @@ block contents
 
       result-area(value="result", ng-show="isResult")
 
-      #progress.progress(aria-hidden="true")
+      #progress.progress(aria-hidden="{{isProgress}}")
         .progress-container
           progressbar(value="progress")
+
+    no-support(ng-if="isNotSupport")
 
 

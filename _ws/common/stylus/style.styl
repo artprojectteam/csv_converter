@@ -43,3 +43,32 @@ h6
   padding-bottom: ($_home_footer + $_space)
 
 @import "_assets/_partials/_footer.styl"
+
+
+
+.noSupport
+  position: fixed
+  top: 0
+  left: 0
+  width: 100vw
+  height: 100vh
+  z-index: 999
+  background: rgba(#000000, 0.8)
+  color: #ffffff
+  display: table
+
+  &-container
+    display: table-cell
+    width: 100%
+    height: 100%
+    vertical-align: middle
+    text-align: center
+
+    h1
+      font-size: font-size-calc(40)
+      font-weight: 600
+      margin-bottom: 1em
+
+    p
+      font-size: font-size-calc(20)
+      margin: 0

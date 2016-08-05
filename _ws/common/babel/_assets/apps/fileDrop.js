@@ -1,7 +1,6 @@
 require('Zepto');
 require('angular');
 require('angular-animate');
-
 import CalcFileSize from '../util/calcFileSize';
 
 module.exports = angular
@@ -12,7 +11,8 @@ module.exports = angular
     ERROR: {
       MULTIPLE: 'コンバートできるファイルは1枚のみです',
       FILE_TYPE: 'コンパートできるファイルタイプはtext/csvのみです',
-      READ: 'ファイルを読み取れませんでした'
+      READ: 'ファイルを読み取れませんでした',
+      NETWORK: '生成に失敗しました'
     },
     TYPE: {
       JSON: {id: 'json', name: 'JSON'},
@@ -51,6 +51,8 @@ module.exports = angular
     
     $scope.download_name = '';
     
+    $scope.isProgress = 'true';
+    
     /**
      * ファイルドロップ後
      * @param $event
@@ -68,9 +70,10 @@ module.exports = angular
         $scope.isDropError = true;
         $scope.isResult = false;
         $scope.dropErrorMsg = $rootScope.FILES.ERROR.MULTIPLE;
-        $('#progress').attr('aria-hidden', 'true');
+        $scope.isProgress = 'true';
         return false;
       }
+      
       
       let file = files[0];
       
@@ -79,7 +82,7 @@ module.exports = angular
         $scope.isDropError = true;
         $scope.isResult = false;
         $scope.dropErrorMsg = $rootScope.FILES.ERROR.FILE_TYPE;
-        $('#progress').attr('aria-hidden', 'true');
+        $scope.isProgress = 'true';
         return false;
       }
       
@@ -94,7 +97,7 @@ module.exports = angular
             file: file.name,
             size: CalcFileSize(file.size)
           };
-          
+          $scope.isProgress = 'true';
           $scope.convert.name = file.name;
         });
       };
@@ -103,8 +106,8 @@ module.exports = angular
         /* memo:処理開始 */
         $scope.$apply(()=>{
           $scope.progress = 0;
+          $scope.isProgress = 'false';
         });
-        $('#progress').attr('aria-hidden', 'false');
       };
       
       reader.onloadend = (evt)=>{
@@ -112,14 +115,12 @@ module.exports = angular
         $scope.$apply(()=>{
           $scope.isResult = true;
           $scope.isDropError = false;
+          $scope.file = evt.target.result;
+          
+          setTimeout(()=>{
+            $('#fileDrop').addClass('res');
+          }, 200);
         });
-        
-        $scope.file = evt.target.result;
-        
-        setTimeout(()=>{
-          $('#fileDrop').addClass('res');
-          $('#progress').attr('aria-hidden', 'true');
-        }, 200);
       };
       
       reader.onprogress = (evt)=>{
@@ -131,9 +132,11 @@ module.exports = angular
       
       reader.onerror = (stuff)=>{
         /* memo:エラー */
-        $scope.isDropError = true;
-        $scope.isResult = false;
-        $scope.dropErrorMsg = $rootScope.FILES.ERROR.READ;
+        $scope.$apply(()=>{
+          $scope.isDropError = true;
+          $scope.dropErrorMsg = $rootScope.FILES.ERROR.READ;
+          $scope.isProgress = 'true';
+        });
       };
       
       reader.readAsDataURL(file);   // ファイル読み込み
@@ -164,7 +167,7 @@ module.exports = angular
      */
     $scope.doConvert = ()=>{
       $scope.progress = 50;
-      $('#progress').attr('aria-hidden', 'false');
+      $scope.isProgress = 'false';
       let ops = {
         type: $scope.convert.type,
         line: $scope.convert.line,
@@ -177,7 +180,7 @@ module.exports = angular
         url: 'application/convert.php',
         transformRequest: $httpParamSerializerJQLike,
         headers: {
-          'Content-Type' : 'application/x-www-form-urlencoded;charset=utf-8'
+          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
         },
         data: {
           option: ops,
@@ -205,21 +208,28 @@ module.exports = angular
           }
           
           let blob = new Blob([res], {'type': content_type});
-          
-          // todo: ブラウザごとの挙動を追加
-          window.URL = window.URL || window.webkitURL;
           $scope.progress = 100;
           
           setTimeout(()=>{
-            $('#download')
-              .attr('href', window.URL.createObjectURL(blob))
-              .trigger('click');
-            $('#progress').attr('aria-hidden', 'true');
+            window.URL = window.URL || window.webkitURL;
+            
+            if(window.navigator.msSaveBlob){
+              window.navigator.msSaveBlob(blob, $scope.download_name);
+            }else{
+              $('#download')
+                .attr('href', window.URL.createObjectURL(blob))
+                .trigger('click');
+            }
+            $scope.$apply(()=>{
+              $scope.isProgress = 'true';
+            });
           }, 100);
           
         })
         .error((data, status, headers, config)=>{
-          console.log('失敗');
+          $scope.isDropError = true;
+          $scope.dropErrorMsg = $rootScope.FILES.ERROR.READ;
+          $scope.isProgress = 'true';
         });
     };
   }])
