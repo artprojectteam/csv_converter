@@ -1,5 +1,13 @@
 @require "_variable.styl"
 
+$clear-fix
+  clear: both
+  &:after
+    display: block
+    clear: both
+    content: ""
+    zoom: 1
+
 $set-br
   content: "\A"
   white-space: pre

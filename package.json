@@ -1,7 +1,7 @@
 {
   "name": "csv_converter",
-  "version": "1.0.0",
-  "description": "CSV to serialize,json,php files",
+  "version": "1.0.1",
+  "description": "CSV to json,serialize files",
   "main": "",
   "scripts": {
     "_eslint": "eslint _ws/common/babel/**/*.js || true",
