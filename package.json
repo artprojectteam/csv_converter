@@ -1,6 +1,6 @@
 {
   "name": "csv_converter",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "CSV to json,serialize files",
   "main": "",
   "scripts": {
