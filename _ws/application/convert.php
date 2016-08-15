@@ -82,7 +82,7 @@ switch($option['title']){
 
 switch($option['type']){
   case 'json':
-    $res = json_encode($csv_data);
+    $res = json_encode($csv_data, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
     $header_content = 'application/json';
     break;
   case 'serialize':
